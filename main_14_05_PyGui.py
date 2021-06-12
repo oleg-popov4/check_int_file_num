@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import (QFileDialog, QApplication)
 from prettytable import PrettyTable
 from prettytable import MSWORD_FRIENDLY,PLAIN_COLUMNS,MARKDOWN,ORGMODE
 
-#test = [el for el in range(6) if el > 2 ]
+
 #--------------Globale Variablen-----------
 VERZEICHNISS = '' #string
 CHOIS = '' #string

@@ -1,0 +1,1 @@
+pyuic5 file_ui2.ui -o FileUi.py

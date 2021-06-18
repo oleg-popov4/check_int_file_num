@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import (QFileDialog, QApplication)
 from prettytable import PrettyTable
 from prettytable import MSWORD_FRIENDLY,PLAIN_COLUMNS,MARKDOWN,ORGMODE
 
-
+#------------------------------------------
 #--------------Globale Variablen-----------
 VERZEICHNISS = '' #string
 CHOIS = '' #string
@@ -19,10 +19,15 @@ VERIFY_LIST = []
 MAX_STR_LEN = 0 # int
 SEARCH_SYM = ''
 BSP_SYM = ''
+TEXT_RESULT = ''
 PATTERN = re.compile('([0-9]+.{1}[0-9]+)|([0-9]+)')
 #--------------Globale Variablen-----------
+#------------------------------------------
 
 def save_string_to_file(file_name,string):
+    '''
+    Funktion ergaenzt ein File namens file_name mit string Zeichen.
+    '''
     write_method = 'at' if os.path.isfile(file_name) else 'tw'
     speichere_text = string if (write_method == 'tw') else '\n' + string
     with open(file_name, write_method, encoding='utf-8') as file:
@@ -214,10 +219,11 @@ def set_box_chois(ui):
 def programm_start(ui):
     global VERZEICHNISS, CHOIS, ALL_DATA, ALL_FILES, ALL_FOLDER, VERIFY_LIST, MAX_STR_LEN, SEARCH_SYM, BSP_SYM,PATTERN
     ausgabe = lambda test: ui.text_results.append( str(test) )
+    ausgabe_text = ''
     #uberprufe ob programm Starten kann
-    if ( VERZEICHNISS == '' ): ausgabe('Kein Verzeichniss ausgewahlt?')
+    if ( VERZEICHNISS == '' ): ausgabe_text = ausgabe_text + str('Kein Verzeichniss ausgewahlt?') + '\n'
     if ( len(VERIFY_LIST) == 0 ): 
-        ausgabe('Nichts zu tun? VERIFY_LIST ist leer')
+        ausgabe_text = ausgabe_text + str('Nichts zu tun? VERIFY_LIST ist leer') + '\n'
     else:
         #print('Wir betrachten folgende Liste')
         #print_list_spalten(VERIFY_LIST,1)#100 ist di grenze
@@ -246,26 +252,27 @@ def programm_start(ui):
         #end for
         #fehlende Nummer
         fehlende_num = [zahl for zahl in range(min_num,max_num+1) if zahl not in zahlen_list_int]
-        ausgabe(VERZEICHNISS)
+        ausgabe_text = ausgabe_text + str(VERZEICHNISS) + '\n'
         #ausgabe('VERIFY_LIST hat ' + str(len(VERIFY_LIST)) + ' Elemente' )
         if (len(zahlen_list_rest) != 0):
-            ausgabe('Es gibt ' + str(len(zahlen_list_rest)) + ' Elemente die nicht ganzahlig sind')
-            ausgabe(zahlen_list_rest)
+            ausgabe_text = ausgabe_text + str('Es gibt ' + str(len(zahlen_list_rest)) + ' Elemente die nicht ganzahlig sind\n')
+            ausgabe_text = ausgabe_text + str(zahlen_list_rest) + '\n'
         if ( len(list_ohne_num) !=0 ):
-            ausgabe('Es gibt ' + str(len(list_ohne_num)) + ' Elemente ohne nummer')
-            ausgabe(list_ohne_num)
-        ausgabe('Maximum int ist {0}, minimale int ist {1}'.format(max_num,min_num))
-        ausgabe('Insgesamt gibt es {0} int Daten'.format(len(zahlen_list_int)))
+            ausgabe_text = ausgabe_text + str('Es gibt ' + str(len(list_ohne_num)) + ' Elemente ohne nummer\n')
+            ausgabe_text = ausgabe_text + str(list_ohne_num) + '\n'
+        ausgabe_text = ausgabe_text + str('Maximum int ist {0}, minimale int ist {1}\n'.format(max_num,min_num))
+        ausgabe_text = ausgabe_text + str('Insgesamt gibt es {0} int Daten\n'.format(len(zahlen_list_int)))
         if (len(fehlende_num) !=0 ): 
-            ausgabe('Es fehlen folgende int Nummer')
+            ausgabe_text = ausgabe_text + str('Es fehlen folgende int Nummer\n')
             ausgabe_str = ''
             for el in fehlende_num:
                 ausgabe_str = ausgabe_str + str(el) + ', '
                 #ausgabe(el)
             #dn for
-            ausgabe(ausgabe_str[:-2])
+            ausgabe_text = ausgabe_text + str(ausgabe_str[:-2]) + '\n'
             #print_list_spalten(fehlende_num)
     #end if
+    ausgabe(ausgabe_text)
 #end programm_start
     
 def save_to_file(ui):
@@ -276,6 +283,23 @@ def save_to_file(ui):
         file_name = file_name if os.path.isfile(file_name) else file_name + '.txt'
         save_string_to_file(file_name,text)
 #end save_to_file
+
+def undo_text_results(ui):
+    global TEXT_RESULT
+    aktuelle_text = ui.text_results.toPlainText()
+    if( aktuelle_text == '' ):
+        ui.text_results.setText(TEXT_RESULT)
+    else:
+        ui.text_results.undo()
+    #end if
+#end undo_text_results
+
+def clear_text_results(ui):
+    global TEXT_RESULT
+    TEXT_RESULT = ui.text_results.toPlainText()
+    ui.text_results.clear()
+#end clear_text_results
+
 
 def inizialisiere_button(ui):
     #Box_chois
@@ -293,6 +317,10 @@ def inizialisiere_button(ui):
     #buttonBox_start Start Abort
     ui.button_start.clicked.connect(lambda: programm_start(ui))
     ui.Button_save_to_file.clicked.connect(lambda: save_to_file(ui))
+    #Button_undo eingefuegte Text loeschen
+    ui.Button_undo.clicked.connect(lambda: undo_text_results(ui))
+    #Button_clear komplette Text loeschen
+    ui.Button_clear.clicked.connect(lambda: clear_text_results(ui))
 #End inizialisiere_button
 
 app = QtWidgets.QApplication(sys.argv)

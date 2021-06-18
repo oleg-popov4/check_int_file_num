@@ -347,7 +347,7 @@ color: white;
 border: 2px solid #A4004D;</string>
        </property>
        <property name="text">
-        <string> Links   </string>
+        <string>  Links   </string>
        </property>
       </widget>
      </item>
@@ -367,7 +367,7 @@ color: white;
 border: 2px solid #A4004D;</string>
        </property>
        <property name="text">
-        <string> Rechts </string>
+        <string>  Rechts  </string>
        </property>
       </widget>
      </item>
@@ -433,6 +433,19 @@ border: 2px solid #A4004D;</string>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
+      <spacer name="horizontalSpacer_5">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
       <widget class="QPushButton" name="button_start">
        <property name="font">
         <font>
@@ -453,9 +466,22 @@ color: white;
 }</string>
        </property>
        <property name="text">
-        <string>Start</string>
+        <string>                Start                </string>
        </property>
       </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_6">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
@@ -493,6 +519,56 @@ background-color:  #404040;</string>
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="Button_clear">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+border: 2px solid #A4004D;
+background-color: #404040;
+color: white;
+}
+
+QPushButton:hover{
+border: 2px solid #A4004D;
+background-color: #444444;
+color: white;
+}</string>
+       </property>
+       <property name="text">
+        <string>  Clear  </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="Button_undo">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+border: 2px solid #A4004D;
+background-color: #404040;
+color: white;
+}
+
+QPushButton:hover{
+border: 2px solid #A4004D;
+background-color: #444444;
+color: white;
+}</string>
+       </property>
+       <property name="text">
+        <string>  Undo  </string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="Button_save_to_file">

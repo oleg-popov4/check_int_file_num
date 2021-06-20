@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Analysis Ganzzahlige Nummerierung</string>
+   <string>Check int number</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #3D3D3D;

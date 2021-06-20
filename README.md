@@ -8,7 +8,7 @@ Finde alle fehlende Zahlen in der ganzzahligen Nummerierung von Dateien oder Ord
 Das Programm ist in Python geschrieben und verwendet PyQt5-Framework als Grafische Oberfläche.
 Zum jetzigen Zeitpunkt ist dieses Programm in einem prozeduralen Stil geschrieben und verwendet einen einzelnen Thread, später wird es in einem objektorientierten Stil mit mehreren Threads umgeschrieben.
 Die Programmoberfläche sieht so aus:
-[GUI](https://github.com/oleg-popov4/check_int_file_num/blob/master/image/FileUi.png)
+![GUI](https://github.com/oleg-popov4/check_int_file_num/blob/master/image/FileUi.png)
 
 Русский язык 
 Описание:

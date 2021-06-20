@@ -318,7 +318,7 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Analysis Ganzzahlige Nummerierung"))
+        Form.setWindowTitle(_translate("Form", "Check int number"))
         self.label.setText(_translate("Form", "Was wollen Sie untersuchen?"))
         self.line_directory.setPlaceholderText(_translate("Form", "Wählen Sie ein Ordner aus"))
         self.Button_directory.setText(_translate("Form", "   Open   "))

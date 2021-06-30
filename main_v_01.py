@@ -25,11 +25,12 @@ class Window(QtWidgets.QWidget):
         # color: rgb(255, 255, 255); Farbe des Textes
         # selection-background-color: rgb(255, 255, 255); Balken beim auswahl des Textes
         # selection-color: rgb(85, 170, 255); Makierung des Schriftes beim auswahl
-    #end set_box_choice
+
+    # end set_box_choice
 
     def clear_line_directory(self):
         pass
-    #end clear_line_directory
+    # end clear_line_directory
 
 
 if __name__ == '__main__':

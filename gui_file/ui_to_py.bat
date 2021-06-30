@@ -1,0 +1,1 @@
+pyuic5 qt_ui_file.ui -o E:\Парсинг_на_Python\Zusatz_Programme\check_int_file_num\gui_file.py

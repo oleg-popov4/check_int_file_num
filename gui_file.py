@@ -44,7 +44,9 @@ class Ui_Form(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.Box_choice.setFont(font)
-        self.Box_choice.setStyleSheet("border-color: rgb(255, 255, 0);\n"
+        self.Box_choice.setStyleSheet("border: 2px solid #A4004D; \n"
+"color: rgb(255, 255, 255);\n"
+"selection-background-color: #b80000;\n"
 "\n"
 "\n"
 "")
@@ -224,11 +226,11 @@ class Ui_Form(object):
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_5.addItem(spacerItem7)
-        self.button_start = QtWidgets.QPushButton(Form)
+        self.Button_start = QtWidgets.QPushButton(Form)
         font = QtGui.QFont()
         font.setPointSize(14)
-        self.button_start.setFont(font)
-        self.button_start.setStyleSheet("QPushButton{\n"
+        self.Button_start.setFont(font)
+        self.Button_start.setStyleSheet("QPushButton{\n"
 "border: 2px solid #A4004D;\n"
 "background-color: #404040;\n"
 "color: white;\n"
@@ -239,8 +241,8 @@ class Ui_Form(object):
 "background-color: #444444;\n"
 "color: white;\n"
 "}")
-        self.button_start.setObjectName("button_start")
-        self.horizontalLayout_5.addWidget(self.button_start)
+        self.Button_start.setObjectName("Button_start")
+        self.horizontalLayout_5.addWidget(self.Button_start)
         spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_5.addItem(spacerItem8)
         self.verticalLayout.addLayout(self.horizontalLayout_5)
@@ -329,7 +331,7 @@ class Ui_Form(object):
         self.Button_cut.setText(_translate("Form", "  Links/Rechts ausrechnen  "))
         self.label_2.setText(_translate("Form", "  Links   "))
         self.label_5.setText(_translate("Form", "  Rechts  "))
-        self.button_start.setText(_translate("Form", "                Start                "))
+        self.Button_start.setText(_translate("Form", "                Start                "))
         self.text_results.setPlaceholderText(_translate("Form", "Alle Ergebnisse werden hier und im Terminal angezeigt"))
         self.Button_clear.setText(_translate("Form", "  Clear  "))
         self.Button_undo.setText(_translate("Form", "  Undo  "))

@@ -69,7 +69,9 @@ color: white;
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-color: rgb(255, 255, 0);
+        <string notr="true">border: 2px solid #A4004D; 
+color: rgb(255, 255, 255);
+selection-background-color: #b80000;
 
 
 </string>
@@ -444,7 +446,7 @@ border: 2px solid #A4004D;</string>
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="button_start">
+      <widget class="QPushButton" name="Button_start">
        <property name="font">
         <font>
          <pointsize>14</pointsize>

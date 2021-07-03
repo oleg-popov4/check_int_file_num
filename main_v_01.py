@@ -143,7 +143,7 @@ class Backend:  # (QtCore.QThread):
         """
         # 1 - Berechne Beispiel
         self.choice = self.main_gui.Box_choice.currentText()
-        # verzeichnis hat sich geändert? brauche abfrage
+        # Todo verzeichnis hat sich geändert? brauche abfrage
         if True:
             self.find_data()
         # end if
@@ -185,7 +185,7 @@ class Backend:  # (QtCore.QThread):
         3 - bei änderung von box_choice muss neu berechnet werden
         """
         # ToDo teste ob gebraucht wird: self.set_data()
-        # Gegeben: verzeichnis muss richtig eingegeben werden
+        # Vorgabe: verzeichnis muss richtig eingegeben werden
         if (os.path.isdir(self.directory)):
             self.search_sym = self.main_gui.line_symbol.text()
             neu_list = []
@@ -255,12 +255,12 @@ class Backend:  # (QtCore.QThread):
 
     # end change_int_value
 
-    def start_computing(self):
-        ausgabe = lambda test: ui.text_results.append(str(test))
+    def run_computing(self):
+        ausgabe = lambda test: self.main_gui.text_results.append(str(test))
         ausgabe_text = ''
         # uberprufe ob programm Starten kann
-        if (VERZEICHNISS == ''): ausgabe_text = ausgabe_text + str('Kein Verzeichniss ausgewahlt?') + '\n'
-        if (len(VERIFY_LIST) == 0):
+        if ( self.directory == ''): ausgabe_text = ausgabe_text + str('Kein Verzeichniss ausgewahlt?') + '\n'
+        if (len(self.verify_list) == 0):
             ausgabe_text = ausgabe_text + str('Nichts zu tun? VERIFY_LIST ist leer') + '\n'
         else:
             # print('Wir betrachten folgende Liste')
@@ -271,11 +271,11 @@ class Backend:  # (QtCore.QThread):
             zahlen_list_int = []
             zahlen_list_rest = []
             list_ohne_num = []
-            links_int = ui.links_int.value()
-            rechts_int = ui.rechts_int.value()
-            for el in VERIFY_LIST:
+            links_int = self.main_gui.links_int.value()
+            rechts_int = self.main_gui.rechts_int.value()
+            for el in self.verify_list:
                 text = el[links_int:-rechts_int] if rechts_int != 0 else el[links_int:]
-                match = PATTERN.search(text)
+                match = self.pattern.search(text)
                 if (match != None):
                     # Uberprufe nach int oder float
                     try:
@@ -290,7 +290,7 @@ class Backend:  # (QtCore.QThread):
             # end for
             # fehlende Nummer
             fehlende_num = [zahl for zahl in range(min_num, max_num + 1) if zahl not in zahlen_list_int]
-            ausgabe_text = ausgabe_text + str(VERZEICHNISS) + '\n'
+            ausgabe_text = ausgabe_text + str(self.directory) + '\n'
             # ausgabe('VERIFY_LIST hat ' + str(len(VERIFY_LIST)) + ' Elemente' )
             if (len(zahlen_list_rest) != 0):
                 ausgabe_text = ausgabe_text + str(
@@ -404,7 +404,7 @@ class Window(QtWidgets.QWidget):
         self.ui_fenster.links_int.valueChanged.connect(self.backend.change_int_value)
         self.ui_fenster.rechts_int.valueChanged.connect(self.backend.change_int_value)
         # Button Start, Clear, Undo, Save to file
-        self.ui_fenster.Button_start.clicked.connect(self.backend.start_computing)
+        self.ui_fenster.Button_start.clicked.connect(self.backend.run_computing)
         self.ui_fenster.Button_clear.clicked.connect(self.backend.clear_text_results)
         self.ui_fenster.Button_undo.clicked.connect(self.backend.undo_text_results)
         self.ui_fenster.Button_save_to_file.clicked.connect(self.backend.save_to_file)

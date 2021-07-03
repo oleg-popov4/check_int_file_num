@@ -10,6 +10,19 @@ class Backend:  # (QtCore.QThread):
     # Signale
     # s1 = QtCore.pyqtSignal(object)
 
+    @staticmethod
+    def save_string_to_file(file_name, string):
+        """
+        Funktion ergänzt ein File namens file_name mit string Zeichen.
+        """
+        write_method = 'at' if os.path.isfile(file_name) else 'tw'
+        speichere_text = string if (write_method == 'tw') else '\n' + string
+        with open(file_name, write_method, encoding='utf-8') as file:
+            file.write(speichere_text)
+        # end with
+
+    # end save_string_to_file
+
     def __init__(self, window, parent=None):
         # QtCore.QThread.__init__(self, parent)
         # Zeiger auf dem Gui-fenster
@@ -66,6 +79,7 @@ class Backend:  # (QtCore.QThread):
         self.main_gui.line_verify.setText(self.bsp_sym)
         self.main_gui.line_symbol.setText(self.search_sym)
         self.main_gui.line_example.setText(self.search_sym)
+
     # end update_gui
 
     # -------------------------clicked functions--------------------------------
@@ -77,7 +91,7 @@ class Backend:  # (QtCore.QThread):
         2 - Falls gültiges verzeichnis ist gegeben, aktualisiere Beispiel
         """
         # self.choice = self.main_gui.Box_choice.currentText() # wird auch bei self.set_calculate_example() abgefragt
-        if ( os.path.isdir(self.directory) ):
+        if (os.path.isdir(self.directory)):
             self.set_calculate_example()
         print('set_box_choice')
         self.info()
@@ -89,7 +103,7 @@ class Backend:  # (QtCore.QThread):
         Suche und speichere Dateien, Files, Dateien und Files
         Vorsicht variablen all_date, all_files, all_folder werden aktualisiert
         """
-        self.all_date = os.listdir(path=self.directory) if ( os.path.isdir(self.directory) ) else []
+        self.all_date = os.listdir(path=self.directory) if (os.path.isdir(self.directory)) else []
         all_files = []
         all_folder = []
         for data in self.all_date:
@@ -153,7 +167,7 @@ class Backend:  # (QtCore.QThread):
             # 1 - abspeichern verzeichnis, Dateien, Files, Dateien und Files in variablen,
             # 2 - Berechne Beispiel
             self.directory = verzeichnis
-            self.main_gui.line_directory.setText(str(verzeichnis)) # Fur Punkt 1
+            self.main_gui.line_directory.setText(str(verzeichnis))  # Fur Punkt 1
             self.set_calculate_example()
         else:
             self.reset_variable()
@@ -194,49 +208,141 @@ class Backend:  # (QtCore.QThread):
     # end clicked_button_anwenden
 
     def cut_example(self):
-        pass
+        """
+        Anpassung vom line_example an int werte
+        1 - Text kann in line_example.text()
+        2 - oder mit int Zahlen (links_int, rechts_int) angegeben werden
+        """
+        # 1 - Text kann in line_example.text() angegeben werden
+        example = ''
+        if (self.bsp_sym != ''):
+            # uberprufe int werte und exapmle
+            links_int = self.main_gui.links_int.value()
+            rechts_int = self.main_gui.rechts_int.value()
+            example = self.main_gui.line_example.text()
+            if (example == ''):  # Anwende int werte
+                if (rechts_int == 0):
+                    example = self.bsp_sym[links_int:]
+                else:
+                    example = self.bsp_sym[links_int:-rechts_int]
+            else:
+                match = re.search(example, self.bsp_sym)
+                if (match != None and len(match.span()) == 2):
+                    neu_links = match.span()[0]
+                    neu_recht = match.span()[1]
+                    self.main_gui.links_int.setValue(neu_links)
+                    self.main_gui.rechts_int.setValue(len(self.bsp_sym) - neu_recht)
+                    example = self.bsp_sym[neu_links:neu_recht]
+                else:
+                    example = 'Muster nicht gefunden'
+            # end if
+            self.main_gui.line_example.setText(example)
 
     # end cut_example
 
     def change_int_value(self):
-        pass
+        """
+        Anpassung vom line_example an int werte
+        1 - Text kann in line_example.text()
+        2 - oder mit int Zahlen (links_int, rechts_int) angegeben werden
+        """
+        # 2 - oder mit int Zahlen (links_int, rechts_int) angegeben werden
+        example_text = self.bsp_sym # ui.line_example.text()
+        links_int = self.main_gui.links_int.value()
+        rechts_int = self.main_gui.rechts_int.value()
+        neu_text = example_text[links_int:-rechts_int] if rechts_int != 0 else example_text[links_int:]
+        self.main_gui.line_example.setText(neu_text)
 
     # end change_int_value
 
     def start_computing(self):
-        pass
+        ausgabe = lambda test: ui.text_results.append(str(test))
+        ausgabe_text = ''
+        # uberprufe ob programm Starten kann
+        if (VERZEICHNISS == ''): ausgabe_text = ausgabe_text + str('Kein Verzeichniss ausgewahlt?') + '\n'
+        if (len(VERIFY_LIST) == 0):
+            ausgabe_text = ausgabe_text + str('Nichts zu tun? VERIFY_LIST ist leer') + '\n'
+        else:
+            # print('Wir betrachten folgende Liste')
+            # print_list_spalten(VERIFY_LIST,1)#100 ist di grenze
+            # Jetzt werden alle Daten mit nummern ausgewertet
+            min_num = 1000
+            max_num = 0
+            zahlen_list_int = []
+            zahlen_list_rest = []
+            list_ohne_num = []
+            links_int = ui.links_int.value()
+            rechts_int = ui.rechts_int.value()
+            for el in VERIFY_LIST:
+                text = el[links_int:-rechts_int] if rechts_int != 0 else el[links_int:]
+                match = PATTERN.search(text)
+                if (match != None):
+                    # Uberprufe nach int oder float
+                    try:
+                        zahl = int(match[0])
+                        min_num = min(min_num, zahl)
+                        max_num = max(max_num, zahl)
+                        zahlen_list_int.append(zahl)
+                    except ValueError:
+                        zahlen_list_rest.append(el)
+                else:
+                    list_ohne_num.append(el)
+            # end for
+            # fehlende Nummer
+            fehlende_num = [zahl for zahl in range(min_num, max_num + 1) if zahl not in zahlen_list_int]
+            ausgabe_text = ausgabe_text + str(VERZEICHNISS) + '\n'
+            # ausgabe('VERIFY_LIST hat ' + str(len(VERIFY_LIST)) + ' Elemente' )
+            if (len(zahlen_list_rest) != 0):
+                ausgabe_text = ausgabe_text + str(
+                    'Es gibt ' + str(len(zahlen_list_rest)) + ' Elemente die nicht ganzahlig sind\n')
+                ausgabe_text = ausgabe_text + str(zahlen_list_rest) + '\n'
+            if (len(list_ohne_num) != 0):
+                ausgabe_text = ausgabe_text + str('Es gibt ' + str(len(list_ohne_num)) + ' Elemente ohne nummer\n')
+                ausgabe_text = ausgabe_text + str(list_ohne_num) + '\n'
+            ausgabe_text = ausgabe_text + str('Maximum int ist {0}, minimale int ist {1}\n'.format(max_num, min_num))
+            ausgabe_text = ausgabe_text + str('Insgesamt gibt es {0} int Daten\n'.format(len(zahlen_list_int)))
+            if (len(fehlende_num) != 0):
+                ausgabe_text = ausgabe_text + str('Es fehlen folgende int Nummer\n')
+                ausgabe_str = ''
+                for el in fehlende_num:
+                    ausgabe_str = ausgabe_str + str(el) + ', '
+                    # ausgabe(el)
+                # dn for
+                ausgabe_text = ausgabe_text + str(ausgabe_str[:-2]) + '\n'
+                # print_list_spalten(fehlende_num)
+        # end if
+        ausgabe(ausgabe_text)
 
     # end start_computing
 
     def clear_text_results(self):
-        pass
+        self.text_result = self.main_gui.text_results.toPlainText()
+        self.main_gui.text_results.clear()
 
     # end clear_text_results
 
     def undo_text_results(self):
-        pass
+        aktuelle_text = self.main_gui.text_results.toPlainText()
+        if (aktuelle_text == ''):
+            self.main_gui.text_results.setText(self.text_result)
+        else:
+            self.main_gui.text_results.undo()
+        # end if
 
     # end undo_text_results
 
     def save_to_file(self):
-        pass
+        text = self.main_gui.text_results.toPlainText()
+        if (text != ''):
+            file_name = QFileDialog.getSaveFileName()
+            file_name = file_name[0]
+            file_name = file_name if os.path.isfile(file_name) else file_name + '.txt'
+            self.save_string_to_file(file_name, text)
 
     # end save_to_file
 
     # -------------------------clicked functions end----------------------------
     # --------------------------------------------------------------------------
-
-    def save_string_to_file(self):
-        """
-        Funktion ergänzt ein File namens file_name mit string Zeichen.
-        """
-        write_method = 'at' if os.path.isfile(file_name) else 'tw'
-        speichere_text = string if (write_method == 'tw') else '\n' + string
-        with open(file_name, write_method, encoding='utf-8') as file:
-            file.write(speichere_text)
-        # end with
-    # end save_string_to_file
-
 
 # end class Backend
 
@@ -265,10 +371,12 @@ class Window(QtWidgets.QWidget):
         # color: rgb(255, 255, 255); Farbe des Textes
         # selection-background-color: rgb(255, 255, 255); Balken beim auswahl des Textes
         # selection-color: rgb(85, 170, 255); Makierung des Schriftes beim auswahl
+
     # end set_box_choice
 
     def set_all_button_text(self):
         pass
+
     # end set_all_button_text
 
     def set_gui_interaction(self):
@@ -286,7 +394,8 @@ class Window(QtWidgets.QWidget):
         # Button_directory
         self.ui_fenster.Button_directory.clicked.connect(lambda: self.backend.set_directory(dir=''))
         # Verzeichnis eintippen in line_directory
-        self.ui_fenster.line_directory.textEdited.connect(lambda: self.backend.set_directory(dir=self.ui_fenster.line_directory.text()))
+        self.ui_fenster.line_directory.textEdited.connect \
+            (lambda: self.backend.set_directory(dir=self.ui_fenster.line_directory.text()))
         # Button_symbol .zip Anwenden
         self.ui_fenster.Button_symbol.clicked.connect(self.backend.clicked_button_anwenden)
         # Button_cut Abschneiden

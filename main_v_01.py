@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets, QtGui  # , QtCore
+from PyQt5 import QtWidgets  # , QtGui  # , QtCore
 import sys
 from PyQt5.QtWidgets import QFileDialog
 import Gui_file
@@ -39,6 +39,7 @@ class Backend:  # (QtCore.QThread):
         self.bsp_sym = ''  # Wird bei line_verify und line_example angezeigt
         self.text_result = ''  # Wird bei text_results angezeigt. Verwendung: undo-funktion
         self.pattern = re.compile('([0-9]+.{1}[0-9]+)|([0-9]+)')
+        #self.main_gui.Box_choice.currentTextChanged.connect(self.set_box_choice)
 
     # end __init__
 
@@ -93,8 +94,6 @@ class Backend:  # (QtCore.QThread):
         # self.choice = self.main_gui.Box_choice.currentText() # wird auch bei self.set_calculate_example() abgefragt
         if (os.path.isdir(self.directory)):
             self.set_calculate_example()
-        print('set_box_choice')
-        self.info()
 
     # end set_box_choice
 
@@ -109,8 +108,10 @@ class Backend:  # (QtCore.QThread):
         for data in self.all_date:
             temp_dir = os.path.join(self.directory, data)
             self.max_str_len = max(self.max_str_len, len(data))
-            if (os.path.isfile(temp_dir)): all_files.append(data)
-            if (os.path.isdir(temp_dir)): all_folder.append(data)
+            if (os.path.isfile(temp_dir)):
+                all_files.append(data)
+            if (os.path.isdir(temp_dir)):
+                all_folder.append(data)
         # end for
         self.all_files = all_files
         self.all_folder = all_folder
@@ -227,7 +228,7 @@ class Backend:  # (QtCore.QThread):
                     example = self.bsp_sym[links_int:-rechts_int]
             else:
                 match = re.search(example, self.bsp_sym)
-                if (match != None and len(match.span()) == 2):
+                if (match is not None and len(match.span()) == 2):
                     neu_links = match.span()[0]
                     neu_recht = match.span()[1]
                     self.main_gui.links_int.setValue(neu_links)
@@ -247,7 +248,7 @@ class Backend:  # (QtCore.QThread):
         2 - oder mit int Zahlen (links_int, rechts_int) angegeben werden
         """
         # 2 - oder mit int Zahlen (links_int, rechts_int) angegeben werden
-        example_text = self.bsp_sym # ui.line_example.text()
+        example_text = self.bsp_sym  # ui.line_example.text()
         links_int = self.main_gui.links_int.value()
         rechts_int = self.main_gui.rechts_int.value()
         neu_text = example_text[links_int:-rechts_int] if rechts_int != 0 else example_text[links_int:]
@@ -259,7 +260,8 @@ class Backend:  # (QtCore.QThread):
         ausgabe = lambda test: self.main_gui.text_results.append(str(test))
         ausgabe_text = ''
         # uberprufe ob programm Starten kann
-        if ( self.directory == ''): ausgabe_text = ausgabe_text + str('Kein Verzeichniss ausgewahlt?') + '\n'
+        if (self.directory == ''):
+            ausgabe_text = ausgabe_text + str('Kein Verzeichniss ausgewahlt?') + '\n'
         if (len(self.verify_list) == 0):
             ausgabe_text = ausgabe_text + str('Nichts zu tun? VERIFY_LIST ist leer') + '\n'
         else:
@@ -276,7 +278,7 @@ class Backend:  # (QtCore.QThread):
             for el in self.verify_list:
                 text = el[links_int:-rechts_int] if rechts_int != 0 else el[links_int:]
                 match = self.pattern.search(text)
-                if (match != None):
+                if (match is not None):
                     # Uberprufe nach int oder float
                     try:
                         zahl = int(match[0])
@@ -343,6 +345,7 @@ class Backend:  # (QtCore.QThread):
 
     # -------------------------clicked functions end----------------------------
     # --------------------------------------------------------------------------
+
 
 # end class Backend
 

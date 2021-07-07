@@ -58,8 +58,6 @@ def print_list_spalten(liste: list, spalten=1, vorg_ignore_num_str=0):
             table_temp = []
     # end for
     print(table)
-
-
 # end print_list_spalten
 
 def inizialisiere_ui(ui):

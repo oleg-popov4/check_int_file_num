@@ -1,0 +1,4 @@
+E:\Manga\Как_демон_император_стал_дворецким
+Maximum int ist 164, minimale int ist 0
+Insgesamt gibt es 165 int Daten
+Nummerierung ist vollzählig

@@ -19,7 +19,7 @@
    <string>Check int number</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #3D3D3D;
+   <string notr="true">
 </string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -33,8 +33,7 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: #404040;
-color: white;
+        <string notr="true">
 </string>
        </property>
        <property name="text">
@@ -75,9 +74,7 @@ color: white;
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: 2px solid #A4004D; 
-color: rgb(255, 255, 255);
-selection-background-color: #b80000;
+        <string notr="true">
 
 
 </string>
@@ -112,11 +109,7 @@ selection-background-color: #b80000;
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">QLineEdit{
-border: 2px solid #A4004D;
-background-color: #404040;
-color: white;
-}</string>
+        <string notr="true"/>
        </property>
        <property name="placeholderText">
         <string>Wählen Sie ein Ordner aus</string>
@@ -131,17 +124,7 @@ color: white;
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton{
-border: 2px solid #A4004D;
-background-color: #404040;
-color: white;
-}
-
-QPushButton:hover{
-border: 2px solid #A4004D;
-background-color: #444444;
-color: white;
-}</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>   Open   </string>
@@ -158,11 +141,7 @@ color: white;
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">QLineEdit{
-border: 2px solid #A4004D;
-background-color: #404040;
-color: white;
-}</string>
+      <string notr="true"/>
      </property>
      <property name="placeholderText">
       <string>Ein Beispiel der Datei, die verifiziert wird</string>
@@ -193,8 +172,7 @@ color: white;
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: #404040;
-color: white;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>Orner oder Dateien nur mit folgenden Symbolen untersuchen.</string>
@@ -211,11 +189,7 @@ color: white;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">QLineEdit{
-border: 2px solid #A4004D;
-background-color: #404040;
-color: white;
-}</string>
+        <string notr="true"/>
        </property>
        <property name="placeholderText">
         <string>Zum Beispiel: .zip</string>
@@ -230,17 +204,7 @@ color: white;
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton{
-border: 2px solid #A4004D;
-background-color: #404040;
-color: white;
-}
-
-QPushButton:hover{
-border: 2px solid #A4004D;
-background-color: #444444;
-color: white;
-}</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>     Anwenden    </string>
@@ -272,9 +236,11 @@ color: white;
        <pointsize>10</pointsize>
       </font>
      </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
      <property name="styleSheet">
-      <string notr="true">background-color: #404040;
-color: white;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>Ignorirere folgende anzahl der Buchstaben:</string>
@@ -291,11 +257,7 @@ color: white;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">QLineEdit{
-border: 2px solid #A4004D;
-background-color: #404040;
-color: white;
-}</string>
+        <string notr="true"/>
        </property>
        <property name="placeholderText">
         <string>A file example that will be verifying</string>
@@ -310,17 +272,7 @@ color: white;
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton{
-border: 2px solid #A4004D;
-background-color: #404040;
-color: white;
-}
-
-QPushButton:hover{
-border: 2px solid #A4004D;
-background-color: #444444;
-color: white;
-}</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>  Links/Rechts ausrechnen  </string>
@@ -348,9 +300,7 @@ color: white;
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: #404040;
-color: white;
-border: 2px solid #A4004D;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>  Links   </string>
@@ -368,9 +318,7 @@ border: 2px solid #A4004D;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: #404040;
-color: white;
-border: 2px solid #A4004D;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>  Rechts  </string>
@@ -398,9 +346,7 @@ border: 2px solid #A4004D;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: #404040;
-color: white;
-border: 2px solid #A4004D;</string>
+        <string notr="true"/>
        </property>
       </widget>
      </item>
@@ -412,9 +358,7 @@ border: 2px solid #A4004D;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: #404040;
-color: white;
-border: 2px solid #A4004D;</string>
+        <string notr="true"/>
        </property>
       </widget>
      </item>
@@ -459,17 +403,7 @@ border: 2px solid #A4004D;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton{
-border: 2px solid #A4004D;
-background-color: #404040;
-color: white;
-}
-
-QPushButton:hover{
-border: 2px solid #A4004D;
-background-color: #444444;
-color: white;
-}</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>                Start                </string>
@@ -499,9 +433,7 @@ color: white;
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">border: 2px solid #A4004D;
-color: rgb(255, 255, 255);
-background-color:  #404040;</string>
+      <string notr="true"/>
      </property>
      <property name="documentTitle">
       <string/>
@@ -534,17 +466,7 @@ background-color:  #404040;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton{
-border: 2px solid #A4004D;
-background-color: #404040;
-color: white;
-}
-
-QPushButton:hover{
-border: 2px solid #A4004D;
-background-color: #444444;
-color: white;
-}</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>  Clear  </string>
@@ -559,17 +481,7 @@ color: white;
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton{
-border: 2px solid #A4004D;
-background-color: #404040;
-color: white;
-}
-
-QPushButton:hover{
-border: 2px solid #A4004D;
-background-color: #444444;
-color: white;
-}</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>  Undo  </string>
@@ -584,17 +496,7 @@ color: white;
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton{
-border: 2px solid #A4004D;
-background-color: #404040;
-color: white;
-}
-
-QPushButton:hover{
-border: 2px solid #A4004D;
-background-color: #444444;
-color: white;
-}</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>  Save to File  </string>
